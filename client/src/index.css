@@ -204,6 +204,11 @@
   to { opacity: 1; }
 }
 
+@keyframes parallax-background {
+  0% { transform: translateY(0px); }
+  100% { transform: translateY(-35px); }
+}
+
 @keyframes slideInLeft {
   from {
     opacity: 0;
@@ -247,12 +252,92 @@
   50% { opacity: 0.8; }
 }
 
+@keyframes spin-slow {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
+.hero-3d-scene {
+  perspective: 1400px;
+}
+
+.hero-3d-orbit {
+  position: absolute;
+  inset: 6%;
+  border: 1px solid hsl(var(--primary) / 0.18);
+  border-radius: 9999px;
+  animation: spin-slow 18s linear infinite;
+}
+
+.hero-3d-orbit-two {
+  inset: 14%;
+  border-style: dashed;
+  animation-duration: 24s;
+  animation-direction: reverse;
+}
+
+.hero-3d-orbit-three {
+  inset: 22%;
+  border-color: hsl(var(--primary) / 0.12);
+  animation-duration: 30s;
+}
+
+.hero-3d-card-main {
+  transform: rotateX(18deg) rotateY(-18deg);
+  transform-style: preserve-3d;
+  animation: float 6s ease-in-out infinite;
+}
+
+.hero-3d-portrait {
+  transform: translateZ(42px);
+  box-shadow: 0 25px 60px rgba(15, 23, 42, 0.25);
+}
+
+.hero-3d-chip {
+  position: absolute;
+  z-index: 20;
+  border: 1px solid hsl(var(--primary) / 0.22);
+  border-radius: 9999px;
+  background: rgba(255, 255, 255, 0.7);
+  backdrop-filter: blur(16px);
+  padding: 0.7rem 1rem;
+  font-size: 0.8rem;
+  font-weight: 700;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: hsl(var(--foreground));
+  box-shadow: 0 16px 40px rgba(15, 23, 42, 0.12);
+  animation: float 5s ease-in-out infinite;
+}
+
+.hero-3d-chip-left {
+  left: -0.6rem;
+  top: 16%;
+  transform: rotate(-8deg);
+}
+
+.hero-3d-chip-right {
+  right: -0.6rem;
+  bottom: 14%;
+  transform: rotate(8deg);
+  animation-delay: 1s;
+}
+
+.dark .hero-3d-chip {
+  background: rgba(10, 14, 24, 0.72);
+}
+
 .animate-fade-in-up {
   animation: fadeInUp 0.6s ease-out forwards;
 }
 
 .animate-fade-in {
   animation: fadeIn 0.5s ease-out forwards;
+}
+
+.scroll-parallax {
+  transform: translateZ(0);
+  animation: parallax-background 120s linear infinite alternate;
 }
 
 .animate-slide-in-left {
@@ -273,6 +358,37 @@
 
 .animate-pulse-glow {
   animation: pulse-glow 3s ease-in-out infinite;
+}
+
+@keyframes banner-float {
+  0% { transform: translateY(0px); }
+  50% { transform: translateY(-10px); }
+  100% { transform: translateY(0px); }
+}
+
+.shadow-glow {
+  box-shadow: 0 30px 70px rgba(14, 165, 233, 0.18);
+}
+
+.section-fade {
+  opacity: 0;
+  transform: translateY(40px);
+  transition: opacity 0.8s ease, transform 0.8s ease;
+}
+
+.section-fade.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+button:focus-visible,
+a:focus-visible {
+  outline: 2px solid rgba(59, 130, 246, 0.7);
+  outline-offset: 4px;
+}
+
+.section-highlight {
+  background: linear-gradient(180deg, rgba(59,130,246,0.08), transparent 45%);
 }
 
 .animation-delay-100 { animation-delay: 0.1s; }

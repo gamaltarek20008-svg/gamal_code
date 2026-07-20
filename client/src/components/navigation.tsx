@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import { Button } from "@/components/ui/button";
 import { useTheme } from "@/components/theme-provider";
-import { Menu, X, Sun, Moon } from "lucide-react";
+import { Menu, X, Sun, Moon, Droplet } from "lucide-react";
 
 const navLinks = [
   { name: "Home", href: "#home" },
@@ -15,7 +15,8 @@ const navLinks = [
 export function Navigation() {
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
-  const { theme, toggleTheme } = useTheme();
+  const { theme, toggleTheme, accentColor, setAccentColor, customAccent, setCustomAccent } = useTheme();
+  const [isColorMenuOpen, setIsColorMenuOpen] = useState(false);
 
   useEffect(() => {
     const handleScroll = () => {
@@ -69,6 +70,52 @@ export function Navigation() {
           </div>
 
           <div className="flex items-center gap-2">
+              <div className="relative">
+              <Button
+                size="icon"
+                variant="ghost"
+                onClick={() => setIsColorMenuOpen((prev) => !prev)}
+                data-testid="button-color-toggle"
+              >
+                <Droplet className="h-5 w-5" />
+              </Button>
+
+              {isColorMenuOpen && (
+                <div className="absolute right-0 top-full mt-2 w-56 rounded-3xl border border-border bg-background p-4 shadow-xl">
+                  <div className="mb-3 text-xs font-semibold uppercase tracking-[0.24em] text-muted-foreground">
+                    Accent Color
+                  </div>
+                  <div className="grid grid-cols-4 gap-2 mb-3">
+                    {[
+                      { name: "blue", value: "#3b82f6" },
+                      { name: "green", value: "#22c55e" },
+                      { name: "purple", value: "#8b5cf6" },
+                      { name: "red", value: "#ef4444" },
+                    ].map((color) => (
+                      <button
+                        key={color.name}
+                        type="button"
+                        onClick={() => setAccentColor(color.name as any)}
+                        className="h-10 w-10 rounded-full border border-border transition-all hover:scale-110"
+                        style={{ backgroundColor: color.value }}
+                        aria-label={`Set accent ${color.name}`}
+                      />
+                    ))}
+                  </div>
+                  <label className="flex items-center justify-between gap-3 rounded-2xl border border-border px-3 py-2">
+                    <span className="text-sm text-foreground">Custom</span>
+                    <input
+                      type="color"
+                      value={customAccent}
+                      onChange={(e) => setCustomAccent(e.target.value)}
+                      className="h-10 w-10 cursor-pointer rounded-full border-0 p-0"
+                      aria-label="Choose custom accent color"
+                    />
+                  </label>
+                </div>
+              )}
+            </div>
+
             <Button
               size="icon"
               variant="ghost"
